@@ -48,12 +48,11 @@ mpif90 -c $flags /g/data/tm70/$USER/CESM/components/cmeps/cime_config/../cesm/dr
 mpif90 -c $flags /g/data/tm70/$USER/CESM/components/cmeps/cime_config/../cesm/driver/esmApp.F90
 
 object_files=""
-for file in /home/547/$USER/cylc-run/u-cq576/share/fcm_make/build-atmos/o*; do
+for file in /home/547/kr4383/cylc-run/u-cq576/share/fcm_make/build-atmos/o/*; do
   object_files="${object_files} ${file}"
 done
 
-ar -r libum.a $obj_files
+ar -r libum.a $object_files
 
 object_files="ensemble_driver.o esm.o esmApp.o esmFlds.o esmFldsExchange_cesm_mod.o esmFldsExchange_hafs_mod.o esmFldsExchange_nems_mod.o esm_time_mod.o med.o med_constants_mod.o med_diag_mod.o med_fraction_mod.o med_internalstate_mod.o med_io_mod.o med_kind_mod.o med_map_mod.o med_merge_mod.o med_methods_mod.o med_phases_aofluxes_mod.o med_phases_history_mod.o med_phases_ocnalb_mod.o med_phases_post_atm_mod.o med_phases_post_glc_mod.o med_phases_post_ice_mod.o med_phases_post_lnd_mod.o med_phases_post_ocn_mod.o med_phases_post_rof_mod.o med_phases_post_wav_mod.o med_phases_prep_atm_mod.o med_phases_prep_glc_mod.o med_phases_prep_ice_mod.o med_phases_prep_lnd_mod.o med_phases_prep_ocn_mod.o med_phases_prep_rof_mod.o med_phases_prep_wav_mod.o med_phases_profile_mod.o med_phases_restart_mod.o med_time_mod.o med_utils_mod.o shr_flux_mod.o t_driver_timers_mod.o util.o"
-um_file="/home/547/$USER/cylc-run/u-cq576/share/fcm_make/build-atmos/o/model.o"
-mpif90 -o ./cesm.exe $object_files libum.a -L/scratch/tm70/$USER/cime/scratch/atest/bld/lib/  -lice   -locn   -lrof -L$cdeps_dir/dshr -ldshr -L$cdeps_dir/streams -lstreams -L$nuopc_dir/nuopc/esmf/c1a1i1o1r1/lib -lcsm_share -L$nuopc_dir/lib -lpiof -lpioc -lgptl -lmct -lmpeu   -mkl=cluster -mkl=cluster -lnetcdf -lnetcdff -lmkl_intel_lp64 -lmkl_core -lmkl_intel_thread -liomp5 -lm -L$cdeps_dir/fox/lib -lFoX_dom -lFoX_sax -lFoX_utils -lFoX_fsys -lFoX_wxml -lFoX_common -lFoX_fsys -L/scratch/tm70/mrd599/esmf-8.3.0/lib/libg/Linux.intel.x86_64_medium.openmpi.default -Wl,-rpath,/scratch/tm70/mrd599/esmf-8.3.0/lib/libg/Linux.intel.x86_64_medium.openmpi.default -lesmf  -lmpi_cxx -cxxlib -lrt -ldl -mkl -lnetcdff -lnetcdf -lpioc -L/scratch/tm70/mrd599/esmf-8.3.0/lib/libg/Linux.intel.x86_64_medium.openmpi.default -L/apps/netcdf/4.7.3/lib
+mpif90 -o ./cesm.exe $object_files libum.a -I/home/547/kr4383/cylc-run/u-cq576/share/fcm_make/build-atmos/include -L/scratch/tm70/kr4383/cime/scratch/atest/bld/lib/  -lice   -locn   -lrof -L$cdeps_dir/dshr -ldshr -L$cdeps_dir/streams -lstreams -L$nuopc_dir/nuopc/esmf/c1a1i1o1r1/lib -lcsm_share -L$nuopc_dir/lib -lpiof -lpioc -lgptl -lmct -lmpeu   -mkl=cluster -mkl=cluster -lnetcdf -lnetcdff -lmkl_intel_lp64 -lmkl_core -lmkl_intel_thread -liomp5 -lm -L$cdeps_dir/fox/lib -lFoX_dom -lFoX_sax -lFoX_utils -lFoX_fsys -lFoX_wxml -lFoX_common -lFoX_fsys -L/scratch/tm70/mrd599/esmf-8.3.0/lib/libg/Linux.intel.x86_64_medium.openmpi.default -Wl,-rpath,/scratch/tm70/mrd599/esmf-8.3.0/lib/libg/Linux.intel.x86_64_medium.openmpi.default -lesmf  -lmpi_cxx -cxxlib -lrt -ldl -mkl -lnetcdff -lnetcdf -lpioc -L/scratch/tm70/mrd599/esmf-8.3.0/lib/libg/Linux.intel.x86_64_medium.openmpi.default -L/apps/netcdf/4.7.3/lib
