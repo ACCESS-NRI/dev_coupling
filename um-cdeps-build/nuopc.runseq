@@ -1,0 +1,21 @@
+runSeq:: 
+@1200 
+  MED med_phases_prep_ice
+  MED -> ICE :remapMethod=redist
+  ICE
+  ROF
+  OCN
+  OCN -> MED :remapMethod=redist
+  MED med_phases_post_ocn
+  ICE -> MED :remapMethod=redist
+  MED med_phases_post_ice
+  ATM
+  ATM -> MED :remapMethod=redist
+  MED med_phases_post_atm
+  ROF -> MED :remapMethod=redist
+  MED med_phases_post_rof
+  MED med_phases_history_write        
+  MED med_phases_restart_write        
+  MED med_phases_profile              
+@ 
+::
