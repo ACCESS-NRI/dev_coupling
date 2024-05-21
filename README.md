@@ -14,6 +14,24 @@ git submodule update --init --recursive
 bash build.sh
 ```
 
+To point the CMEPS, CICE, and Icepack submodules to the ACCESS-NRI forks (enables you to push/pull latest changes):
+
+```
+cd CMEPS/CMEPS
+git remote set-url origin https://github.com/ACCESS-NRI/CMEPS.git
+git fetch
+git checkout access-cmeps-0.14.35
+cd ../../CICE/CICE/
+git remote set-url origin https://github.com/ACCESS-NRI/CICE.git
+git fetch
+git checkout cice-export
+cd icepack
+git remote set-url origin https://github.com/ACCESS-NRI/CICE.git](https://github.com/ACCESS-NRI/Icepack.git)
+git fetch
+git checkout cm3-coupling
+```
+
+
 ## Checkout and modify suite
 ```
 rosie checkout u-db245
