@@ -14,7 +14,7 @@ git checkout cm3
 git submodule update --init --recursive
 ```
 
-To the CMEPS, CICE, and Icepack submodules to the ACCESS-NRI forks (enables you to push/pull latest changes):
+Point the CMEPS, CICE, and Icepack submodules to the ACCESS-NRI forks (enables you to push/pull latest changes):
 ```
 cd CMEPS/CMEPS
 git remote set-url origin https://github.com/ACCESS-NRI/CMEPS.git
