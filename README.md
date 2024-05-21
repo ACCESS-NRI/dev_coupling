@@ -6,16 +6,15 @@ Development space for documenting code and issues related to coupling
 
 ### Install OM3 components
 
+Clone `access-om3`, switch to the `cm3` branch, and clone the submodules:
 ```
 git clone https://github.com/COSIMA/access-om3.git
 cd access-om3
 git checkout cm3
 git submodule update --init --recursive
-bash build.sh
 ```
 
-To point the CMEPS, CICE, and Icepack submodules to the ACCESS-NRI forks (enables you to push/pull latest changes):
-
+To the CMEPS, CICE, and Icepack submodules to the ACCESS-NRI forks (enables you to push/pull latest changes):
 ```
 cd CMEPS/CMEPS
 git remote set-url origin https://github.com/ACCESS-NRI/CMEPS.git
@@ -30,6 +29,9 @@ git remote set-url origin https://github.com/ACCESS-NRI/Icepack.git
 git fetch
 git checkout cm3-coupling
 ```
+
+Build!
+```bash build.sh```
 
 
 ## Checkout and modify suite
