@@ -13,3 +13,9 @@ git checkout cm3
 git submodule update --init --recursive
 bash build.sh
 ```
+
+## Checkout and modify suite
+```
+rosie checkout u-db245
+```
+In `bin/build.sh` set `OM3_DIR` to the location of your `access-om3` repo.
