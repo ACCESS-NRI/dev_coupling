@@ -26,7 +26,7 @@ git remote set-url origin https://github.com/ACCESS-NRI/CICE.git
 git fetch
 git checkout cice-export
 cd icepack
-git remote set-url origin https://github.com/ACCESS-NRI/CICE.git](https://github.com/ACCESS-NRI/Icepack.git)
+git remote set-url origin https://github.com/ACCESS-NRI/Icepack.git
 git fetch
 git checkout cm3-coupling
 ```
