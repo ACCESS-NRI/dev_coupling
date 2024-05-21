@@ -31,7 +31,9 @@ git checkout cm3-coupling
 ```
 
 Build!
-```bash build.sh```
+```
+bash build.sh
+```
 
 
 ## Checkout and modify suite
