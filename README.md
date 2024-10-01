@@ -36,8 +36,23 @@ bash build.sh
 ```
 
 
-## Checkout and modify suite
+### Clone UM source and suite
 ```
-rosie checkout u-db245
+git clone git@github.com:ACCESS-NRI/cm3-um.git
+git clone git@github.com:ACCESS-NRI/cm3-suite.git
 ```
-In `bin/build.sh` set `OM3_DIR` to the location of your `access-om3` repo.
+In `cm3-suite/bin/build.sh` set `OM3_DIR` to the location of your `access-om3` repo.
+In `cm3-suite/app/fcm_make/rose-app.conf` set `um_sources` to the location of your `cm3-um` repo.
+
+### Setup persistent sessions (if not already done)
+
+Follow instructions here: https://access-hive.org.au/models/run-a-model/run-access-cm/#set-up-access-cm-persistent-session
+
+### Run the model!
+
+```
+module use /g/data/hr22/modulefiles
+module load cylc7/23.09
+rose suite-run --name RUN_NAME
+```
+
