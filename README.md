@@ -23,7 +23,7 @@ git checkout access-cmeps-0.14.35
 cd ../../CICE/CICE/
 git remote set-url origin https://github.com/ACCESS-NRI/CICE.git
 git fetch
-git checkout cice-export
+git checkout cm3-coupling
 cd icepack
 git remote set-url origin https://github.com/ACCESS-NRI/Icepack.git
 git fetch
