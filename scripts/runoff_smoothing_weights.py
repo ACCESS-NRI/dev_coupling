@@ -167,4 +167,7 @@ for src_point in np.where(river_outflow_mask_mask)[0]:
 mapping_ds = xr.Dataset(data_vars={'S': ('n_s', mapping_weights), 'col': ('n_s', source_points), 
                                    'row': ('n_s', destination_points)})
 
+mapping_ds.attrs['rMax'] = r_max
+mapping_ds.attrs['eFold'] = e_fold
+mapping_ds.attrs['rivseq'] = '/g/data/vk83/prerelease/configurations/inputs/access-cm3/ancil/n96e_momO1_20201102/qrparm.rivseq.20241001'
 mapping_ds.to_netcdf('runoff_smoothing_weights.nc')
