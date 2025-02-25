@@ -28,11 +28,13 @@ cd icepack
 git remote set-url origin https://github.com/ACCESS-NRI/Icepack.git
 git fetch
 git checkout cm3-coupling
+cd ../../..
 ```
 
 Build!
 ```
 bash build.sh
+cd ..
 ```
 
 
@@ -41,7 +43,7 @@ bash build.sh
 git clone git@github.com:ACCESS-NRI/cm3-um.git
 git clone git@github.com:ACCESS-NRI/cm3-suite.git
 ```
-In `cm3-suite/bin/build.sh` set `OM3_DIR` to the location of your `access-om3` repo.
+In `cm3-suite/rose-suite.conf` set `OM3_DIR` to the location of your `access-om3` repo.
 In `cm3-suite/app/fcm_make/rose-app.conf` set `um_sources` to the location of your `cm3-um` repo.
 
 ### Setup persistent sessions (if not already done)
