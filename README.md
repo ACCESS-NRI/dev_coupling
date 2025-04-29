@@ -2,7 +2,42 @@
 
 Development space for documenting code and issues related to coupling
 
-## CM3 instructions
+# dev_coupling
+
+Development space for documenting code and issues related to coupling
+
+## Spack CM3 instructions
+
+### Setup persistent sessions (if not already done)
+
+Follow instructions here: https://access-hive.org.au/models/run-a-model/run-access-cm/#set-up-access-cm-persistent-session
+
+### Clone UM source and suite
+```
+git clone git@github.com:ACCESS-NRI/UM.git
+cd UM
+git checkout vn13.0_nuopc
+cd ..
+git clone git@github.com:ACCESS-NRI/access3-configs.git
+cd access3-configs
+git checkout cm3_O100km-spack-build
+```
+In `cm3-suite/rose-suite.conf` set `OM3_DIR` to the location of your `access-om3` repo.
+In `cm3-suite/app/fcm_make/rose-app.conf` set `um_sources` and `config_root_path` to the location of your `cm3-um` repo.
+
+### Run the model!
+
+From the `access3-configs` directory run:
+
+```
+module use /g/data/hr22/modulefiles
+module load cylc7/23.09
+rose suite-run --name RUN_NAME
+```
+
+
+
+## Old CM3 instructions
 
 ### Install OM3 components
 
@@ -44,7 +79,7 @@ git clone git@github.com:ACCESS-NRI/cm3-um.git
 git clone git@github.com:ACCESS-NRI/cm3-suite.git
 ```
 In `cm3-suite/rose-suite.conf` set `OM3_DIR` to the location of your `access-om3` repo.
-In `cm3-suite/app/fcm_make/rose-app.conf` set `um_sources` to the location of your `cm3-um` repo.
+In `cm3-suite/app/fcm_make/rose-app.conf` set `um_sources` and `config_root_path` to the location of your `cm3-um` repo.
 
 ### Setup persistent sessions (if not already done)
 
