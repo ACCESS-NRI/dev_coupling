@@ -22,7 +22,7 @@ git clone git@github.com:ACCESS-NRI/access3-configs.git
 cd access3-configs
 git checkout cm3_O100km-spack-build
 ```
-In `cm3-suite/rose-suite.conf` set `OM3_DIR` to the location of your `access-om3` repo.
+
 In `cm3-suite/app/fcm_make/rose-app.conf` set `um_sources` and `config_root_path` to the location of your `cm3-um` repo.
 
 ### Run the model!
@@ -35,7 +35,12 @@ module load cylc7/23.09
 rose suite-run --name RUN_NAME
 ```
 
+## Model cost
 
+| Ocn resolution | Cost (kSU/yr) | Speed (SYPD) |
+|----------------|---------------|--------------|
+| 25km           | 30            | 3            |
+| 100km          | 8             | 6            |
 
 ## Old CM3 instructions
 
