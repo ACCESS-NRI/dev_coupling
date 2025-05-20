@@ -23,7 +23,7 @@ cd access3-configs
 git checkout cm3_O100km-spack-build
 ```
 
-In `cm3-suite/app/fcm_make/rose-app.conf` set `um_sources` and `config_root_path` to the location of your `cm3-um` repo.
+In `cm3-suite/app/fcm_make/rose-app.conf` set `um_sources` and `config_root_path` to the location of your `UM` repo.
 
 ### Run the model!
 
