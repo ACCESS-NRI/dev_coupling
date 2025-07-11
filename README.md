@@ -1,8 +1,4 @@
 # dev_coupling
-TEST2
-Development space for documenting code and issues related to coupling
-
-# dev_coupling
 
 Development space for documenting code and issues related to coupling
 
