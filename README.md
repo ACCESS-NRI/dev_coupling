@@ -20,7 +20,7 @@ git checkout vn13.0_nuopc
 cd ..
 git clone git@github.com:ACCESS-NRI/access3-configs.git
 cd access3-configs
-git checkout cm3_O100km-spack-build
+git checkout cm3_O100km
 ```
 
 In `cm3-suite/app/fcm_make/rose-app.conf` set `um_sources` and `config_root_path` to the location of your `UM` repo.
