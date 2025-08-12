@@ -18,16 +18,21 @@ git clone git@github.com:ACCESS-NRI/UM.git
 cd UM
 git checkout vn13.0_nuopc
 cd ..
-git clone git@github.com:ACCESS-NRI/access3-configs.git
+git clone git@github.com:ACCESS-NRI/access-cm3-configs.git
 cd access3-configs
 git checkout cm3_O100km-spack-build
 ```
+Or 
+```
+git checkout cm3_O25km-spack-build
+```
+for the 25km ocean. 
 
 In `cm3-suite/app/fcm_make/rose-app.conf` set `um_sources` and `config_root_path` to the location of your `UM` repo.
 
 ### Run the model!
 
-From the `access3-configs` directory run:
+From the `access-cm3-configs` directory run:
 
 ```
 module use /g/data/hr22/modulefiles
