@@ -148,7 +148,7 @@ def move_ocean(year, work_dirs, ocean_archive_dir):
         # Sanity check
         if (matches != []) and (len(matches) != 12):
             raise FileNotFoundError(
-                f"Only {len(matches)} found for pattern {pattern}"
+                f"Only {len(matches)} file found for pattern {pattern}"
             )
 
         # Concatenate all files matching the current pattern
@@ -302,7 +302,7 @@ def parse_cell_methods(methods_string):
 
 
 def move_ice(work_dirs, ice_archive_dir):
-    pattern = r"access-cm3\.cice\.h"
+    pattern = r"access-cm3\.cice\.(?!r)"
     datasets = []
     output_paths = []
     for dir in work_dirs:
@@ -313,50 +313,11 @@ def move_ice(work_dirs, ice_archive_dir):
 
                 ds = xr.open_dataset(infile, decode_times=False)
                 ds = to_proleptic(ds)
-                shift_cice_dates(ds)
 
                 datasets.append(ds)
                 output_paths.append(outfile)
 
     xr.save_mfdataset(datasets, output_paths)
-
-
-def shift_cice_dates(ds):
-    """
-    Cice in CM3 writes monthly data to first day of next month.
-    Shift to mid month date in correct month.
-
-    Edits ds in place.
-    """
-    # Save attributes and encoding
-    time_attrs = ds.time.attrs
-    time_encoding = ds.time.encoding
-    orig_dates = ds.time.data
-    decrease_month = [prev_month(date) for date in orig_dates]
-    mid_months = [mid_month(date) for date in decrease_month]
-
-
-    ds["time"] = mid_months
-    ds.time.attrs = time_attrs
-    ds.time.encoding = time_encoding
-
-
-def prev_month(cf_datetime):
-    """Reduce month entry by one"""
-    if cf_datetime.month != 1:
-        return cftime.datetime(
-            cf_datetime.year,
-            cf_datetime.month -1,
-            cf_datetime.day,
-            calendar=cf_datetime.calendar
-        )
-    else:
-        return cftime.datetime(
-            cf_datetime.year - 1,
-            12,
-            cf_datetime.day,
-            calendar=cf_datetime.calendar
-        )
 
 
 def mid_month(cf_datetime):

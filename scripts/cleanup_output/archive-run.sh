@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #PBS -l ncpus=8
-#PBS -l mem=20GB
+#PBS -l mem=60GB
 #PBS -q normal
 #PBS -P tm70
 #PBS -l walltime=03:00:00
@@ -11,11 +11,13 @@
 module use /g/data/hh5/public/modules
 module load conda/analysis3
 
-EXPT_DIR=/scratch/tm70/kr4383/cylc-run/cm3-run-29-01-2025-exp-runoff-smoothing-rmax-500-efold-1000
-ARCHIVE_DIR=/g/data/zv30/non-cmip/ACCESS-CM3/cm3-run-29-01-2025-exp-runoff-smoothing-rmax-500-efold-1000
+EXPT_DIR=
+ARCHIVE_DIR=
+startyear=1981
+endyear=1981
 
-for year in {1981..2001}
-do
+
+for ((year=startyear;year<=endyear;year++)); do
 echo "Year: $year"
 python cleanup_output.py -y $year -e $EXPT_DIR -a $ARCHIVE_DIR
 done
