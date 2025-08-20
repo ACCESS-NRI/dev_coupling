@@ -320,28 +320,6 @@ def move_ice(work_dirs, ice_archive_dir):
     xr.save_mfdataset(datasets, output_paths)
 
 
-def mid_month(cf_datetime):
-    """Get mid month date for a given cftime datetime"""
-    month_start = cftime.datetime(cf_datetime.year,
-                                  cf_datetime.month,
-                                  1,
-                                  calendar=cf_datetime.calendar)
-
-    next_month = cf_datetime.month % 12 + 1
-    if next_month == 1:
-        next_month_year = cf_datetime.year + 1
-    else:
-        next_month_year = cf_datetime.year
-
-    month_end = cftime.datetime(next_month_year,
-                                next_month,
-                                1,
-                                calendar=cf_datetime.calendar)
-
-    mid_month = month_start + (month_end - month_start)/2
-    return mid_month
-
-
 def move_coupler(work_dirs, coupler_archive_dir):
     pattern = r"access-cm3\.cpl\.h.+\.nc"
     for dir in work_dirs:
