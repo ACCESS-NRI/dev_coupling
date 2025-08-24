@@ -2,10 +2,6 @@
 
 Development space for documenting code and issues related to coupling
 
-# dev_coupling
-
-Development space for documenting code and issues related to coupling
-
 ## Spack CM3 instructions
 
 ### Setup persistent sessions (if not already done)
