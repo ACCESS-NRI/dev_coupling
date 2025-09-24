@@ -44,5 +44,5 @@ rose suite-run --name RUN_NAME
 
 | Ocn resolution | Cost (kSU/yr) | Speed (SYPD) |
 |----------------|---------------|--------------|
-| 25km           | 30            | 3            |
+| 25km           | 25            | 4            |
 | 100km          | 8             | 6            |
