@@ -44,11 +44,23 @@ The input and output paths are set via the following options in the `archive_run
 ```bash
 EXPT_DIR=           # cylc run directory for experiment to be archived
 ARCHIVE_DIR=        # Directory for writing the archived data
-startyear=1981      # First year to archive
-endyear=1981        # Last year to archive
 ```
 
 Note that the script will fail on incomplete years of output. 
+
+`archive_run.sh` converts a single year of output, specified as an argument during the `qsub` call:
+
+```
+qsub -v YEAR=<year> archive_run.sh
+```
+
+To archive several years in an experiment, this can be run in a loop:
+```
+for year in {1981..2030}
+do
+qsub -v YEAR=$year archive_run.sh
+done
+```
 
 By default, coupler history files `access-cm3.cpl.h.*.nc` are not archived. These can also be archived
 by adding the flag `--cpl` to the line

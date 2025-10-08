@@ -134,7 +134,7 @@ def move_ocean(year, work_dirs, ocean_archive_dir):
     # - 1D variables combined into single file
     file_patterns = {
         "native": rf"access-cm3\.mom6.h\.native_{year}_([0-9]{{2}})\.nc",
-        "sfc": rf"access-cm3\.mom6\.h\.sfc_{year}_([0-9]{{2}})\.nc",
+        # "sfc": rf"access-cm3\.mom6\.h\.sfc_{year}_([0-9]{{2}})\.nc",
         "z": rf"access-cm3\.mom6\.h\.z_{year}_([0-9]{{2}})\.nc"
     }
     for output_type, pattern in file_patterns.items():
@@ -204,7 +204,10 @@ def move_ocean(year, work_dirs, ocean_archive_dir):
         for path in filepaths:
             check_exists(path)
         print("Saving ocean variables")
-        xr.save_mfdataset(datasets, filepaths)
+
+        for dataset, filepath in groups_to_save:
+            dataset.load().to_netcdf(filepath)
+        # xr.save_mfdataset(datasets, filepaths)
 
 
 def is_scalar_var(dims):
@@ -302,7 +305,7 @@ def parse_cell_methods(methods_string):
 
 
 def move_ice(work_dirs, ice_archive_dir):
-    pattern = r"access-cm3\.cice\.(?!r)"
+    pattern = r"access-cm3\.cice\.1mon\.(?!r)"
     datasets = []
     output_paths = []
     for dir in work_dirs:
