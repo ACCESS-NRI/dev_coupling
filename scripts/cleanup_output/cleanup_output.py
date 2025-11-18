@@ -135,7 +135,8 @@ def move_ocean(year, work_dirs, ocean_archive_dir):
     file_patterns = {
         "native": rf"access-cm3\.mom6.h\.native_{year}_([0-9]{{2}})\.nc",
         # "sfc": rf"access-cm3\.mom6\.h\.sfc_{year}_([0-9]{{2}})\.nc",
-        "z": rf"access-cm3\.mom6\.h\.z_{year}_([0-9]{{2}})\.nc"
+        "z": rf"access-cm3\.mom6\.h\.z_{year}_([0-9]{{2}})\.nc",
+        "rho2": rf"access-cm3\.mom6\.h\.rho2_{year}_([0-9]{{2}})\.nc",
     }
     for output_type, pattern in file_patterns.items():
         matches = []
@@ -173,6 +174,8 @@ def move_ocean(year, work_dirs, ocean_archive_dir):
             dim_label = get_ndims(single_var_da.dims)
             if output_type == "z":
                 dim_label = f"{dim_label}_z"
+            elif output_type == "rho2":
+                dim_label = f"{dim_label}_rho2"
 
             reduction_method = parse_cell_methods(
                 single_var_da.attrs["cell_methods"]
@@ -410,7 +413,7 @@ def make_year_archive(archive_dir, components, year, dir_type):
     archive_dir.mkdir(exist_ok=True)
     try:
         year_archive = (archive_dir / dir_type / f"{year}")
-        year_archive.mkdir(exist_ok=False, parents=True)
+        year_archive.mkdir(exist_ok=True, parents=True)
 
     except FileExistsError as err:
         print(
@@ -425,7 +428,7 @@ def make_year_archive(archive_dir, components, year, dir_type):
     }
 
     for component_archive in component_archive_dirs.values():
-        component_archive.mkdir()
+        component_archive.mkdir(exist_ok=True)
 
     return component_archive_dirs
 
