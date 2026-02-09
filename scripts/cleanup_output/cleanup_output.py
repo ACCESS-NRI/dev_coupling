@@ -124,93 +124,22 @@ def move_atmos(year, share_dir, atmosphere_archive_dir):
 
 def move_ocean(year, work_dirs, ocean_archive_dir):
     # Move static ocean file
-    static_file = "access-cm3.mom6.h.static.nc"
-    if not (ocean_archive_dir / static_file).is_file():
-        shutil.copy2(work_dirs[0] / static_file, ocean_archive_dir / static_file)
+    file_pattern = rf"access-((cm3)|(om3)).mom6.static.nc"
+
+    for file in os.listdir(work_dirs[0]):
+        if re.match(file_pattern, file):
+            shutil.copy2(work_dirs[0] / file, ocean_archive_dir / file.replace('om3', 'cm3'))
 
     # Process non-statc files:
     # - Concatenate into years
-    # - Separate non-1d vars into individual files
-    # - 1D variables combined into single file
-    file_patterns = {
-        "native": rf"access-cm3\.mom6.h\.native_{year}_([0-9]{{2}})\.nc",
-        # "sfc": rf"access-cm3\.mom6\.h\.sfc_{year}_([0-9]{{2}})\.nc",
-        "z": rf"access-cm3\.mom6\.h\.z_{year}_([0-9]{{2}})\.nc",
-        "rho2": rf"access-cm3\.mom6\.h\.rho2_{year}_([0-9]{{2}})\.nc",
-    }
-    for output_type, pattern in file_patterns.items():
-        matches = []
-        for dir in work_dirs:
-            for file in os.listdir(dir):
-                if re.match(pattern, file):
-                    filepath = dir / file
-                    matches.append(filepath)
+    file_pattern = rf"access-((om3)|(cm3))\.mom6\.((2d)|(3d)|(scalar)).*\.nc"
 
-        # Sanity check
-        if (matches != []) and (len(matches) != 12):
-            raise FileNotFoundError(
-                f"Only {len(matches)} file found for pattern {pattern}"
-            )
+    for file in os.listdir(work_dirs[0]):
+        if re.match(file_pattern, file):
+            out_filepath = ocean_archive_dir / re.sub(r'_(?=\d{4})', '', file).replace('om3', 'cm3')
 
-        # Concatenate all files matching the current pattern
-        working_file = xr.open_mfdataset(matches,
-                                         decode_times=False,
-                                         preprocess=to_proleptic)
-
-        # File wide attributes
-        frequency = frequency = get_frequency(working_file.time)
-        data_years = working_file["time.year"]
-        check_year(year, data_years)
-
-        scalar_fields = []
-        groups_to_save = []
-        # Loop through variables in dataset, saving each one to file
-        for var_name in working_file:
-            if var_name in AUX_VARS:
-                continue
-
-            single_var_da = working_file[var_name]
-
-            dim_label = get_ndims(single_var_da.dims)
-            if output_type == "z":
-                dim_label = f"{dim_label}_z"
-            elif output_type == "rho2":
-                dim_label = f"{dim_label}_rho2"
-
-            reduction_method = parse_cell_methods(
-                single_var_da.attrs["cell_methods"]
-            )["time"]
-
-            # Handle scalar fields separately
-            if is_scalar_var(single_var_da.dims):
-                scalar_fields.append(var_name)
-                continue
-
-            file_name = set_ocn_file_name(dim_label,
-                                          var_name,
-                                          frequency,
-                                          reduction_method,
-                                          year)
-            file_path = ocean_archive_dir / file_name
-            single_var_ds = working_file[[var_name] + AUX_VARS]
-
-            groups_to_save.append((single_var_ds, file_path))
-
-        # Generate file name for scalar variables
-        if scalar_fields:
-            scalar_file_name = set_scalar_name(working_file, scalar_fields, frequency, year)
-            scalar_ds = working_file[scalar_fields + AUX_VARS]
-            groups_to_save.append((scalar_ds, ocean_archive_dir / scalar_file_name))
-
-        # Save files in parallel
-        datasets, filepaths = zip(*groups_to_save)
-        for path in filepaths:
-            check_exists(path)
-        print("Saving ocean variables")
-
-        for dataset, filepath in groups_to_save:
-            dataset.load().to_netcdf(filepath)
-        # xr.save_mfdataset(datasets, filepaths)
+            dataset = xr.open_mfdataset([folder / file for folder in work_dirs], decode_times=False, preprocess=to_proleptic)
+            dataset.load().to_netcdf(out_filepath)
 
 
 def is_scalar_var(dims):
