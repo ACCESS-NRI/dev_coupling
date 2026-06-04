@@ -19,7 +19,7 @@ cd UM
 git checkout vn13.0_nuopc
 cd ..
 git clone git@github.com:ACCESS-NRI/access-cm3-configs.git
-cd access3-configs
+cd access3-cm3-configs
 git checkout cm3_O100km
 ```
 Or 
